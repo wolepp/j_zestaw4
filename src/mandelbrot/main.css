@@ -1,0 +1,11 @@
+.root {
+    -fx-background: #eee;
+}
+
+.button {
+    -fx-color: rgba(37, 81, 104, 0.42);
+}
+
+.label {
+    -fx-background-color: #ddf;
+}

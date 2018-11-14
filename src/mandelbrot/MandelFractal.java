@@ -81,23 +81,24 @@ public class MandelFractal extends Application implements ComplexDrawable {
         red = green = blue = 0;
 
         if (procentPredkosci <= 50) {      //R
-            //ratio - transformacja z [0, 50] na [0, 1]
-            double ratio = 1d - 2d * procentPredkosci;
+            //ratio - transformacja z [0, 50] na [1, 0]
+            double ratio = 1d - 2d * (procentPredkosci/100);
             //pomnożenie przez maksymalną wartość
-            red = (int) ratio * 0xFF;
+            red = (int) (ratio * 0xFF);
             //przesunięcie: 0x000000RR -> 0x00RR000000
             red = red << 16;
         }
 
         if (25 < procentPredkosci && procentPredkosci < 75) {   //G
 
-            double ratio = (procentPredkosci - 0.25) * 2;
-            green = (int) ratio * 0xFF;
+            double ratio = ((procentPredkosci - 25) * 2)/100;
+            green = (int) (ratio * 0xFF);
             green = green << 8;
         }
 
         if (procentPredkosci > 50) {    //B
-            blue = (int) (((procentPredkosci - 0.5) * 2) * 0xFF);
+            double ratio = (procentPredkosci - 50) * 2 / 100;
+            blue = (int) (ratio *0xFF);
         }
 
         int kolor = (red | green | blue);

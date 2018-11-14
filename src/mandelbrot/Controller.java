@@ -58,17 +58,6 @@ public class Controller {
         label.setText("Hello");
     }
 
-    public void mouseMoves(MouseEvent mouseEvent) {
-        double x = mouseEvent.getX();
-        double y = mouseEvent.getY();
-        gc.setGlobalBlendMode(BlendMode.DIFFERENCE);
-        gc.setStroke(Color.WHITE);
-        rect(gc);
-        x2 = x;
-        y2 = y;
-        rect(gc);
-    }
-
     public void drawRect(ActionEvent actionEvent) {
         gc.setStroke(Color.web("#FFF0F0"));
         gc.setGlobalBlendMode(BlendMode.MULTIPLY);
@@ -80,6 +69,17 @@ public class Controller {
         y1 = mouseEvent.getY();
         x2 = x1;
         y2 = y1;
+    }
+
+    public void mouseMoves(MouseEvent mouseEvent) {
+        double x = mouseEvent.getX();
+        double y = mouseEvent.getY();
+        gc.setGlobalBlendMode(BlendMode.DIFFERENCE);
+        gc.setStroke(Color.WHITE);
+        rect(gc);
+        x2 = x;
+        y2 = y;
+        rect(gc);
     }
 
     public void mouseReleased(MouseEvent mouseEvent) {
@@ -99,7 +99,7 @@ public class Controller {
         // rysuje trójkąt Sierpińskiego
         for (int x = 0; x < size; x++) {
             for (int y = 0; y < size; y++) {
-                pw.setArgb(x, y, (x & y) == 0 ? 0xFFFFFF00 : 0xFFFFFFFF);
+                pw.setArgb(x, y, (x & y) == 0 ? 0xFFFF00FF : 0xFFFFFFFF);
             }
         }
 

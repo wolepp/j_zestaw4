@@ -72,27 +72,18 @@ public class MandelFractal extends Application implements ComplexDrawable {
         if (predkosc == N)
             return 0xFF000000;  //czarny
 
-        // 0xAARRGGBB
-        // A - alfa: przezroczystosc (FF - pełny kolor, 00 - pełna przezroczystosc)
 
-        //predkosc ucieczki, w przedziale [0, 100]
         double procentPredkosci = ((double) predkosc / (double) N) * 100;
         int red, green, blue;
         red = green = blue = 0;
 
-        if (procentPredkosci <= 50) {      //R
-            //ratio - transformacja z [0, 50] na [0, 1]
-            double ratio = 1d - 2d * procentPredkosci;
-            //pomnożenie przez maksymalną wartość
-            red = (int) ratio * 0xFF;
-            //przesunięcie: 0x000000RR -> 0x00RR000000
+        if (procentPredkosci < 50) {      //R
+            red = (int) ((1d - 2d * procentPredkosci) * 0xFF);
             red = red << 16;
         }
 
         if (25 < procentPredkosci && procentPredkosci < 75) {   //G
-
-            double ratio = (procentPredkosci - 0.25) * 2;
-            green = (int) ratio * 0xFF;
+            green = (int) (((procentPredkosci - 0.25) * 2) * 0xFF);
             green = green << 8;
         }
 

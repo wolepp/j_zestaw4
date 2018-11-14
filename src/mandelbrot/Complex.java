@@ -83,10 +83,10 @@ public class Complex implements Field<Complex> {
      * @return ten obiekt pomnożony przez c
      */
     public Complex mul(Complex c) {
-        double origR = this.r;
-        double origI = this.i;
-        this.r = (origR * c.r) - (origI * c.i);
-        this.i = (origR * c.i) + (origI * c.r);
+        double r = this.r * c.r - this.i * c.i;
+        double i = this.r * c.i + this.i * c.r;
+        this.r = r;
+        this.i = i;
         return this;
     }
 

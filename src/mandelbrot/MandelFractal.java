@@ -70,20 +70,29 @@ public class MandelFractal extends Application implements ComplexDrawable {
 
         //zbieżny
         if (predkosc == N)
-            return 0xFF000000;
+            return 0xFF000000;  //czarny
 
+        // 0xAARRGGBB
+        // A - alfa: przezroczystosc (FF - pełny kolor, 00 - pełna przezroczystosc)
+
+        //predkosc ucieczki, w przedziale [0, 100]
         double procentPredkosci = ((double) predkosc / (double) N) * 100;
-        int kolor = 0xFFFFFFFF;
         int red, green, blue;
         red = green = blue = 0;
 
-        if (procentPredkosci < 50) {      //R
-            red = (int) ((1d - 2d * procentPredkosci) * 0xFF);
+        if (procentPredkosci <= 50) {      //R
+            //ratio - transformacja z [0, 50] na [0, 1]
+            double ratio = 1d - 2d * procentPredkosci;
+            //pomnożenie przez maksymalną wartość
+            red = (int) ratio * 0xFF;
+            //przesunięcie: 0x000000RR -> 0x00RR000000
             red = red << 16;
         }
 
         if (25 < procentPredkosci && procentPredkosci < 75) {   //G
-            green = (int) (((procentPredkosci - 0.25) * 2) * 0xFF);
+
+            double ratio = (procentPredkosci - 0.25) * 2;
+            green = (int) ratio * 0xFF;
             green = green << 8;
         }
 
@@ -91,7 +100,8 @@ public class MandelFractal extends Application implements ComplexDrawable {
             blue = (int) (((procentPredkosci - 0.5) * 2) * 0xFF);
         }
 
-        kolor &= (red | green | blue);
+        int kolor = (red | green | blue);
+        kolor |= 0xFF000000;
 
         return kolor;
     }
@@ -100,13 +110,11 @@ public class MandelFractal extends Application implements ComplexDrawable {
 
         int v = 0;
         Complex z1 = new Complex(c);    //z1 = 0+0i + c
-        Complex zn = new Complex();
         for (int n = 2; n <= N; n++) {
             v = n;
-            zn.setVal(Complex.add(Complex.mul(z1, z1), c));
-            if (zn.sqrAbs() > (r * r))
+            z1.mul(z1).add(c);
+            if (z1.sqrAbs() > (r * r))
                 break;
-            z1 = zn;
         }
 
         return v;

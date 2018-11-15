@@ -102,10 +102,10 @@ public class Complex implements Field<Complex> {
             throw new ArithmeticException("Dzielenie przez 0");
         else {
             double mianownik = (c.r * c.r) + (c.i * c.i);
-            double origR = this.r;
-            double origI = this.i;
-            this.r = (origR * c.r) + (origI * c.i);
-            this.i = (c.r * origI) - (origR * c.i);
+            double r = this.r * c.r + this.i * c.i;
+            double i = this.i * c.r - this.r * c.i;
+            this.r = r;
+            this.i = i;
             this.r /= mianownik;
             this.i /= mianownik;
         }
